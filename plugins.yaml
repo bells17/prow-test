@@ -1,3 +1,28 @@
+approve:
+  - repos:
+    - necobot/prow-test
+    require_self_approval: true
+    lgtm_acts_as_approve: true
+
+size:
+  s:   10
+  m:   30
+  l:   100
+  xl:  500
+  xxl: 1000
+
+blunderbuss:
+  max_request_count: 2
+  use_status_availability: true
+
 plugins:
   necobot/prow-test:
-  - size
+  - approve  # Allow OWNERS to /approve
+  - assign  # Allow /assign and /cc
+  - blunderbuss  # Auto-assign people
+  - hold  # Support /hold to delay merge
+  - lgtm  # Allow /lgtm
+  - lifecycle  # Allow /lifecycle stale
+  - size  # Auto-label size of PR
+  - verify-owners # Validates OWNERS file changes in PRs.
+  - wip  # Auto-hold PRs with WIP in title
